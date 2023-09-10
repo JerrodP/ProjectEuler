@@ -1,13 +1,10 @@
-﻿using System;
-using System.Reflection;
-
-namespace Euler
+﻿namespace ProjectEuler
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            int solution = Problem6.Solve();
+            int solution = Problem7.Solve();
             Console.WriteLine("The solution is :" + solution);
 
         }
@@ -75,7 +72,7 @@ namespace Euler
 
             foreach (long factor in factors)
             {
-                if (Math.IsPrime(factor) == true)
+                if (Math.IsPrime(factor))
                 {
                     primes.Add(factor);
                 }
@@ -99,7 +96,7 @@ namespace Euler
                 {
                     product = i * j;
                     productString = Convert.ToString(i * j);
-                    string reverseProduct = new string(productString.ToCharArray().Reverse().ToArray());
+                    var reverseProduct = new string(productString.ToCharArray().Reverse().ToArray());
                     if (productString == reverseProduct)
                     {
                         if (product > palindromeMax)
@@ -138,62 +135,39 @@ namespace Euler
 
     class Problem6
     {
-        static public int Solve()
+        public static int Solve()
         {
-            int sumOfSpuares = 0;
+            int sumOfSquares = 0;
             int squareOfSum = 0;
 
             for (int i = 1; i <= 100; i++)
             {
                 squareOfSum += i;
-                sumOfSpuares += Math.Power(i, 2);
+                sumOfSquares += Math.Power(i, 2);
             }
             squareOfSum = Math.Power(squareOfSum, 2);
-            return squareOfSum - sumOfSpuares;
+            return squareOfSum - sumOfSquares;
         }
     }
 
-    // Class for common math functions I might use in the future.
-    class Math
+    class Problem7
     {
-        public static bool IsPrime(long num, long divisor = 2)
+        public static int Solve()
         {
-            if (num < 2)
+            var counter = 0;
+            var primeCounter = 0;
+            while (true)
             {
-                return false;
-            }
-            if (num == 2 || num == 3)
-            {
-                return true;
-            }
-            if (num % divisor == 0)
-            {
-                return false;
-            }
-            if (divisor * divisor > num)
-            {
-                return true;
-            }
-            bool result = IsPrime(num, divisor + 1);
-
-            return (result);
-        }
-
-        public static int Power(int number, int exponet)
-        {
-            if (exponet == 0)
-            {
-                return 1;
-            }
-            int counter = 1;
-            int power = number;
-            while (counter < exponet)
-            {
-                number *= power;
+                if (Math.IsPrime(counter))
+                {
+                    primeCounter++;
+                    if (primeCounter == 10001)
+                    {
+                        return counter;
+                    }
+                }
                 counter++;
             }
-            return number;
         }
     }
-
 }
